@@ -1,75 +1,235 @@
-<header>
+# UnipusAI 安装后完整使用说明（含听力/口语）
 
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
--->
-
-# Introduction to GitHub
-
-_Get started using GitHub in less than an hour._
-
-</header>
-
-<!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
--->
-
-## Step 1: Create a branch
-
-_Welcome to "Introduction to GitHub"! :wave:_
-
-**What is GitHub?**: GitHub is a collaboration platform that uses _[Git](https://docs.github.com/get-started/quickstart/github-glossary#git)_ for versioning. GitHub is a popular place to share and contribute to [open-source](https://docs.github.com/get-started/quickstart/github-glossary#open-source) software.
-<br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=pBy1zgt0XPc)
-
-**What is a repository?**: A _[repository](https://docs.github.com/get-started/quickstart/github-glossary#repository)_ is a project containing files and folders. A repository tracks versions of files and folders. For more information, see "[About repositories](https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories)" from GitHub Docs.
-
-**What is a branch?**: A _[branch](https://docs.github.com/en/get-started/quickstart/github-glossary#branch)_ is a parallel version of your repository. By default, your repository has one branch named `main` and it is considered to be the definitive branch. Creating additional branches allows you to copy the `main` branch of your repository and safely make any changes without disrupting the main project. Many people use branches to work on specific features without affecting any other parts of the project.
-
-Branches allow you to separate your work from the `main` branch. In other words, everyone's work is safe while you contribute. For more information, see "[About branches](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)".
-
-**What is a profile README?**: A _[profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)_ is essentially an "About me" section on your GitHub profile where you can share information about yourself with the community on GitHub.com. GitHub shows your profile README at the top of your profile page. For more information, see "[Managing your profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)".
-
-![profile-readme-example](/images/profile-readme-example.png)
-
-### :keyboard: Activity: Your first branch
-
-1. Open a new browser tab and navigate to your newly made repository. Then, work on the steps in your second tab while you read the instructions in this tab.
-2. Navigate to the **< > Code** tab in the header menu of your repository.
-
-   ![code-tab](/images/code-tab.png)
-
-3. Click on the **main** branch drop-down.
-
-   ![main-branch-dropdown](/images/main-branch-dropdown.png)
-
-4. In the field, name your branch `my-first-branch`. In this case, the name must be `my-first-branch` to trigger the course workflow.
-5. Click **Create branch: my-first-branch** to create your branch.
-
-   ![create-branch-button](/images/create-branch-button.png)
-
-   The branch will automatically switch to the one you have just created.
-   The **main** branch drop-down bar will reflect your new branch and display the new branch name.
-
-6. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
-
-<footer>
-
-<!--
-  <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
--->
+> 适用对象：已完成安装的用户（Windows 11）
+>  
+> 目标：让你明确知道程序会自动做什么、什么时候需要手动干预、如何监控进度、以及出错时怎么办。
 
 ---
 
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+## 0. 使用前先确认
 
-&copy; 2024 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+请先确认以下项目都已完成：
 
-</footer>
+- 已安装 Python（或你使用的是已打包的 exe 版本）
+- 已安装并可使用 Edge 浏览器
+- 已安装 FFmpeg（命令行执行 `ffmpeg -version` 有输出）
+- 已配置好 `config.json`（账号、密码、API、课程名等）
+
+如果上面任何一项未完成，请先补齐再启动。
+
+---
+
+## 1. 启动程序的完整步骤
+
+1. 打开项目目录（包含脚本和 `config.json`）。
+2. 检查 `config.json` 中关键字段：
+   - `username`
+   - `password`
+   - `api_key`
+   - `base_url`
+   - `model`
+   - `target_course`
+   - `token_full`
+   - `whisper_api`
+3. 启动程序：
+   - Python 方式：`python Unipus_v2.4.py`
+   - 或双击你准备好的启动脚本（如 `start.bat`）
+4. 启动后不要随意手动操作浏览器，避免打断自动流程。
+
+---
+
+## 2. U校园登录流程（含验证码处理）
+
+程序启动后，通常会执行以下流程：
+
+1. 打开 U校园登录页。
+2. 尝试使用配置中的账号密码登录。
+3. 若平台触发验证码：
+   - **这一步需要你手动干预**。
+   - 在浏览器中完成验证码（滑块/图形/短信等平台要求的形式）。
+4. 验证码通过后，程序继续后续流程（进入课程页面、识别任务、开始答题）。
+
+### 手动干预时机（登录阶段）
+
+你需要手动操作的典型情况：
+
+- 验证码出现
+- 登录状态失效要求二次验证
+- 页面卡在登录中不跳转
+
+其余时间请尽量不要点击页面元素。
+
+---
+
+## 3. Token 获取和配置说明
+
+`token_full` 是关键字段，失效会导致白屏、跳转异常、登录后无内容等问题。
+
+### 获取步骤
+
+1. 手动在浏览器登录 U校园。
+2. 打开开发者工具（F12）→ `Console`。
+3. 执行：
+   `localStorage.getItem('__token')`
+4. 复制完整返回内容。
+5. 粘贴到 `config.json` 的 `token_full` 字段。
+
+### 注意事项
+
+- 复制必须完整，不能截断。
+- `token_full` 会过期，异常时需要重新获取。
+- 不要把账号、密码、token、API Key 上传到公开仓库。
+
+---
+
+## 4. 自动答题过程说明（程序会自动做什么）
+
+启动并登录成功后，程序通常会自动：
+
+1. 定位目标课程（按 `target_course` 匹配）。
+2. 进入待完成任务。
+3. 抓取题目内容（文字/选项/音频）。
+4. 调用大模型生成答案。
+5. 自动填写并提交。
+6. 继续下一题，直至该任务完成或遇到异常。
+
+### 你需要知道的边界
+
+- 程序并不保证 100% 正确率。
+- 个别页面结构变化、网络波动、风控策略会影响成功率。
+- 遇到验证码、二次认证、异常弹窗时通常需要人工介入。
+
+---
+
+## 5. 监控和日志查看方法（如何看进度）
+
+建议同时观察两处：
+
+1. **终端/控制台输出**
+   - 看当前课程、当前题目、调用模型状态、报错信息。
+2. **浏览器实际页面**
+   - 看是否在正常切题、是否已填写答案、是否提交成功。
+
+### 进度监控建议
+
+- 每隔几分钟确认一次页面仍在自动推进。
+- 若长时间停在同一题，优先看终端是否报错。
+- 记录错误关键字（例如 token、captcha、timeout、api error）便于排查。
+
+---
+
+## 6. 运行中常见问题处理
+
+### 6.1 白屏/无法进入课程
+- 重新获取并更新 `token_full`
+- 确认登录是否成功
+- 清理浏览器缓存后重试
+
+### 6.2 API 调用失败
+- 检查 `api_key` 是否正确
+- 检查账户余额/配额
+- 检查 `base_url`、`model` 是否匹配
+
+### 6.3 页面卡住不动
+- 先看终端是否报超时
+- 网络恢复后重启程序
+- 必要时切换到更稳定模型再试
+
+### 6.4 无法定位课程
+- 调整 `target_course` 为更准确关键字
+- 确认课程确实在当前账号下可见
+
+---
+
+## 7. 听力题和口语题的具体配置（重点）
+
+### 7.1 听力题
+
+推荐本地 Whisper：
+
+- `whisper_api: null`
+- 首次运行会下载模型（体积较大，耐心等待）
+- 必须已安装 FFmpeg，否则音频处理会失败
+
+### 听力题失败排查
+
+- 执行 `ffmpeg -version`，确认命令可用
+- 查看首次模型下载是否中断
+- 检查音频文件是否成功读取
+
+### 7.2 口语题
+
+口语题一般流程：
+
+- 程序读取题干与要求
+- 调用模型生成可提交内容
+- 自动填入或辅助提交（具体表现取决于题型页面）
+
+### 口语题注意事项
+
+- 平台可能有录音/时长/交互限制，不同任务成功率不同
+- 若页面要求实时录音交互，可能需要你手动确认关键步骤
+- 建议先在非关键任务上小范围测试
+
+---
+
+## 8. 如何确认程序正确工作
+
+满足以下信号可视为运行正常：
+
+- 能自动登录并进入目标课程
+- 题目在持续切换，不长时间卡死
+- 终端持续有“读取题目→生成答案→填写提交”的日志
+- 页面上可看到已完成数量增加
+- 未出现连续 API 错误、验证码阻塞、token 失效
+
+建议首次运行时全程观察至少一个完整任务，确认流程稳定再长时间挂跑。
+
+---
+
+## 9. 程序中止或出错时的处理方法
+
+按以下顺序处理：
+
+1. **先停止脚本**（Ctrl+C 或关闭窗口）。
+2. 记录最后一条报错日志（截图/复制）。
+3. 判断故障类型：
+   - 登录/验证码问题
+   - token 失效
+   - API 问题
+   - FFmpeg/Whisper 问题
+   - 页面结构变化
+4. 对应修复后重新启动。
+5. 先小范围验证（1~2 个任务），正常后再继续全量运行。
+
+### 建议的重启前检查清单
+
+- [ ] 网络稳定
+- [ ] token 已更新
+- [ ] API 可用且余额充足
+- [ ] FFmpeg 可用
+- [ ] 模型配置正确
+- [ ] 目标课程名匹配
+
+---
+
+## 自动与手动边界（总结）
+
+### 程序会自动做
+
+- 打开页面、登录尝试、进课程、识题、生成答案、填写提交、推进下一题。
+
+### 你需要手动干预
+
+- 出现验证码/二次验证
+- token 失效后重新获取并更新
+- API 不可用时切换模型或修正配置
+- 页面异常弹窗/风控导致流程中断
+
+---
+
+## 安全与合规提醒
+
+- 请仅用于个人学习与效率辅助，遵守学校与平台规则。
+- 不要在公开渠道泄露账号、密码、token、API Key。
+- 建议将敏感配置保存在本地，不要提交到 Git 仓库。
