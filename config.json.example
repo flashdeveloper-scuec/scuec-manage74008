@@ -1,0 +1,15 @@
+{
+  "username": "你的U校园账号",
+  "password": "你的U校园密码",
+  "timeout": 10,
+  "url": "https://uai.unipus.cn/sso/index.html?service=https%3A%2F%2Fucloud.unipus.cn%2Fhome",
+  "api_key": "你的DeepSeek API密钥",
+  "base_url": "https://api.deepseek.com/v1",
+  "model": "deepseek-chat",
+  "target_course": "新视野大学英语",
+  "learning_strategy": "learn_all_compulsory_course",
+  "max_tokens": 2000,
+  "token_full": "登录U校园后从浏览器控制台执行 localStorage.getItem('__token') 获取",
+  "temperature": 0.3,
+  "whisper_api": null
+}
